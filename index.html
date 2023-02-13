@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" /> 
+    <title>Hangman</title>
+</head>
+<body> 
+    <div id="firstPage">
+        <div id="submitPage">
+            <h2>Wellcome to Hangman</h2>
+            <h4>Enter the word with lowercase and without numbers</h4>
+            <input type="text" id="userInput" name="userInput">
+            <button type="submit" onclick="submitWord()">Submit</button><br>
+        </div>
+    
+    <div id = "lettersPara"></div><br>
+    <div id="alphabet"></div>
+    <div id="remainingTryes"></div>
+    <div id="tryes"> </div>
+    </div>
+    <div id="guessWord">
+        <p>Guess the word: </p>
+        <input type="text" id="guessInput" name="guessInput">
+        <button type="submit" onclick="guessButton()">Submit</button><br>
+    </div>
+</body>
+    <script src="script.js"></script>
+</html>
