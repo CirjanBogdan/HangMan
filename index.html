@@ -2,28 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" /> 
-    <title>Hangman</title>
+    <title>HangMan</title>
 </head>
 <body> 
-    <div id="firstPage">
-        <div id="submitPage">
-            <h2>Wellcome to Hangman</h2>
-            <h4>Enter the word with lowercase and without numbers</h4>
-            <input type="text" id="userInput" name="userInput">
-            <button type="submit" onclick="submitWord()">Submit</button><br>
+    <div id="container" align = "center">
+        <div id="firstPage">
+            <h2>Welcome to HangMan</h2><br>
+            <div id="startGame">
+                <h4>Insert word: </h4><br>  
+                <input type="text" id="userInput" onkeyup="this.value = this.value.toUpperCase();">
+                <button onclick="submitWord()">Submit</button><br>
+                <div id="tries"></div>
+                <div id="lettersPara" class="lettersPara"></div>
+                <div id="box"></div>
+                <div id="name"></div>
+            </div>
         </div>
-    
-    <div id = "lettersPara"></div><br>
-    <div id="alphabet"></div>
-    <div id="remainingTryes"></div>
-    <div id="tryes"> </div>
-    </div>
-    <div id="guessWord">
-        <p>Guess the word: </p>
-        <input type="text" id="guessInput" name="guessInput">
-        <button type="submit" onclick="guessButton()">Submit</button><br>
     </div>
 </body>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </html>
