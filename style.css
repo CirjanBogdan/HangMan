@@ -1,12 +1,9 @@
-html {
-    font-family: sans-serif;
-    background-color: white;
+.button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+div.lettersPara {
+    font-size: 40px;
 }
-
-p {
-    color: #f44336;
-}
-
-
-
-  
