@@ -1,87 +1,76 @@
-let guessWord = document.getElementById("guessWord");
-    guessWord.style.display = "none";
-    let firstPage = document.getElementById("firstPage");
-    let lettersPara = document.getElementById("lettersPara");
-    let attempts = 6;
+let attempts = 6;
+let lettersPara = document.getElementById("lettersPara");
 
+    // Hiding the input word and transform him in UnderScore lines
 function submitWord() {
-    guessWord.style.display = "initial";
-    let submitPage = document.getElementById("submitPage");
-    submitPage.style.display = "none";
-    let input = document.getElementById("userInput").value;  
-    lettersPara.innerHTML = input.replace(/[abcdefghijklmnopqrstuvwxyz]/g, '_ ');
-    let letters = '', letter;
-    for (let i = 97; i <= 122; i++) {
-        letter = String.fromCharCode(i);
-        letters += '<button onclick="setLetter(\'' + letter + '\');">' + letter + '</button>';
-    }
-    document.getElementById('alphabet').innerHTML = letters;  
-    document.getElementById('tryes').innerHTML = "Last Letters: ";
+    let userInput = document.getElementById("userInput").value;
+    let tries = document.getElementById("tries");
+    tries.innerHTML = "You have " + attempts + " attempts left";
+    generateAlphabet();
+    lettersPara.innerHTML = userInput.replace(/[ABCDEFGHIJKLMNOPQRSTUVWXYZ]/g, '_ ');
 }
 
-let setLetter = function(selectedLetter) {
+    // Generate alphabet with selectable buttons
+function generateAlphabet() {
+    let html = '';
+    let c;
+    for (let i = 65; 90 >= i; i++) {
+        c = String.fromCharCode(i);
+        html += '<button onclick="setLetter(\'' + c + '\');">' + c + '</button>';
+    }
+    document.getElementById('box').innerHTML = html;
+    let setLetter = function(selectedLetter) {
+        document.getElementById('name').innerHTML += x;
+    };
+}
+
+    // After a letter has been pressed, we check the letter
+function setLetter(selectedLetter) {
     let input = document.getElementById("userInput").value;
-    document.getElementById('tryes').innerHTML += selectedLetter + " ";
     let lettersParaCopy = lettersPara.innerHTML;
     let newLettersPara = '', counter = 0, result = '';
+    let foundALetter;
     for (let i = 0; i < input.length; ++i) {
         if (selectedLetter === input[i]) {
             newLettersPara += selectedLetter + " ";
             result += selectedLetter;
-            counter = 1;
+            foundALetter = 1;
         } else {
             newLettersPara += lettersParaCopy[i * 2] + " ";
             result += lettersParaCopy[i * 2];
         }
     }
-    if (counter < 1) {
-        --attempts;
-    }
-    if (attempts === 0) {
-        alert("You lost!");
-        firstPage.style.display = "none";
-        guessWord.style.display = "none";
-        restartButton();
-    } else if (input === result) {
-        alert("You win!");
-        firstPage.style.display = "none";
-        guessWord.style.display = "none";
-        restartButton();
-    }
     lettersPara.innerHTML = newLettersPara;
-    document.getElementById("remainingTryes").innerHTML = "You have " + attempts + " attempts";
-};
+    checkWinner(foundALetter, result);
+}
 
-    function restartButton() {
-        const restartButton= document.createElement('button');
-        restartButton.innerText= "Restart the game";
-        restartButton.className = "button";
-        document.body.appendChild(restartButton);
-        restartButton.addEventListener("click", function() {
-            location.reload();
-        });
-    }
-
-function guessButton() {
-    let guessButton = document.getElementById("guessInput").value;
-    let guessInput = document.getElementById(guessWord);
-    let input = document.getElementById("userInput").value;
-    if (guessButton === input) {
-        alert("You win!");
-        firstPage.style.display = "none";
-        guessWord.style.display = "none";
-        restartButton();
-    } else {
-        alert("You are wrong!");
+    // We're checking to see if the word was guessed or the attempts has over
+function checkWinner(foundALetter, result) {
+    let userInput = document.getElementById("userInput").value;
+    if (!foundALetter) {
         --attempts;
-        document.getElementById("remainingTryes").innerHTML = "You have " + attempts + " attempts";
-        if (attempts === 0) {
-            alert("You lost!");
-            firstPage.style.display = "none";
-            restartButton();
-            guessWord.style.display = "none";
-        }
+        tries.innerHTML = "You have " + attempts + " attepmts left";
+    } 
+    if (attempts === 0) {
+        alert("Game Over");
+        lettersPara.innerHTML = userInput;
+        document.getElementById("box").style.display = "none";
+        restartButton();
+    } else if (result === userInput) {
+        alert("You guessed the word! Congratulations!");
+        document.getElementById("box").style.display = "none";
+        restartButton();
     }
+}
+
+function restartButton() {
+    const restartButton= document.createElement('button');
+    restartButton.innerText= "Restart the game";
+    restartButton.className = "button";
+    document.body.appendChild(restartButton);
+    restartButton.addEventListener("click", function() {
+        location.reload();
+    });
 }
     
     
